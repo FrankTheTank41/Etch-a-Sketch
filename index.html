@@ -1,0 +1,102 @@
+<!DOCTYPE>
+<html>
+<head>
+    <meta charset = 'utf-8'>
+    <link rel = 'stylesheet' href = 'style.css'>
+    <title>Art Class</title>
+</head>
+<body>
+  <div class = 'welcome'>
+    <p>Welcome to the Etch-a-Sketch Program made by Kavanaugh Frank</p>
+  </div>
+  <div class = 'subtext'>
+    <p>Relaod the page to change the number of boxes</p>
+  </div>
+  <div class = 'buttons'>
+    <button id='clear' onclick = 'colorChange()'>CLEAR</button>
+    <button id='black' onclick = 'colorBlack()'>BLACK</button>
+    <button id='rainbow' onclick = 'colorRainbow()'>RAINBOW</button>
+    <button id='eraser' onclick = 'colorErase()'>ERASER</button>
+  </div>
+  <div id='container'>
+
+
+
+  </div>
+
+
+
+
+
+
+
+  <script>
+    function divCreation(numberOf){
+      for(let i = numberOf; i>0;i--){
+        const newDiv = document.createElement('div')//makes a new div
+        newDiv.classList.add(`grid`)//adds a class to it
+        newDiv.style.backgroundColor = 'white';
+        newDiv.style.border = '1px solid lightgray'
+        newDiv.style.borderRadius = '15%'
+        const container = document.querySelector('#container')//selects the already existing container div
+        container.append(newDiv)//adds the new div to the container
+      }
+    }
+
+
+    let perSide = ''; //this variable is used in two functions
+    let totalBoxes = '';//this variable is used in two functions
+
+    function findBox(){
+      perSide = prompt('How many per side?') || '16' //prompts the user for how many boxes if there is no answer it defaults to 16
+      return perSide;
+    }
+
+
+  function drawSomething(){
+    findBox() //runs the finBox function
+    totalBoxes = perSide * perSide ;  //total number of boxes
+    divCreation(totalBoxes) //creates the total number of boxes based on the entered sides
+    let container = document.querySelector('#container');
+    container.style.gridTemplateColumns = (`repeat(${perSide}, 1fr`);
+    container.style.gridTemplateRows = (`repeat(${perSide}, 1fr`);
+  }
+
+  drawSomething() //runs the function that finds the number of boxes and creates them
+
+
+    function colorBlack(){
+      const divs = document.querySelectorAll(".grid")  //selects everything with the class grid
+      divs.forEach(div => //for each div in the array divs
+        div.addEventListener('mouseover' , function(e){ //for each div in the array divs
+          e.target.style.background = `black` //sets the targets background
+        }))
+    }
+
+
+    function colorRainbow(){
+      const divs = document.querySelectorAll(".grid") //selects everything with the class grid
+      divs.forEach(div => //for each div in the array divs
+        div.addEventListener('mouseover' , function(e){ //for each div in the array divs
+          e.target.style.background = `hsl(${Math.random() * 360}, 100%, 50%)` //finds random numbers for the color
+        }))
+    }
+    function colorChange(){ //when the clear button is clicked this function runs
+      const divs = document.querySelectorAll(".grid") //selects all of the divs
+      divs.forEach(div =>
+        div.style.backgroundColor = 'white' //sets the color to white
+        )
+    }
+
+    function colorErase(){
+      const divs = document.querySelectorAll(".grid") //selects everything with the class grid
+      divs.forEach(div => //for each div in the array divs
+        div.addEventListener('mouseover' , function(e){
+          e.target.style.background = `white`
+        }))
+    }
+
+
+  </script>
+</body>
+</html>
